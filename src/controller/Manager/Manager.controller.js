@@ -5,7 +5,7 @@ const uuid = require('uuid');
 const { PhoneNumbersModel } = require("../../models/PhoneNumbers/PhoneNumbers.model");
 const { twilioInstance } = require("../../utils/Tel/twilioInstance");
 const uniqid = require('uniqid');
-const { SystemConfigModel } = require("../../models/SystemConfig/SystemConfig.Model");
+const { SystemConfigModel } = require("../../models/SystemConfig/SystemConfig.model");
 const { CallModel } = require("../../models/Calls/Calls.model");
 const { Op } = require('sequelize');
 exports.createManager = async (req, res) => {
