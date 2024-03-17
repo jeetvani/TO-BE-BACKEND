@@ -129,7 +129,7 @@ exports.initiateCallToSingleNumber = async (req, res) => {
             action: `${server_base_url}/Call/handleFirstResponse`,
             method: 'POST',
             timeout: 3,
-            language: 'en-US',
+            language: 'hi-IN',
         });
         gather.play('https://dl.sndup.net/z7ty/TO%20BE%20ASK%20IF%20INTRESTED.mp3');
         const finalResponse = response.toString();
