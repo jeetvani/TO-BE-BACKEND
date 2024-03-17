@@ -9,7 +9,7 @@ const { CallModel } = require("../../models/Calls/Calls.model");
 const { AgentAvailabilityModel, AgentModel } = require("../../models/Agent/Agent.model");
 
 const { PhoneNumbersModel } = require("../../models/PhoneNumbers/PhoneNumbers.model");
-const { SystemConfigModel } = require("../../models/SystemConfig/SystemConfig.Model");
+const { SystemConfigModel } = require("../../models/SystemConfig/SystemConfig.model");
 const { firebaseAdmin } = require("../../utils/Firebase/firebase");
 const { twilioInstance } = require("../../utils/Tel/twilioInstance");
 const Sentiment = require('sentiment');
