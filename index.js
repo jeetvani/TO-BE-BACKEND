@@ -14,7 +14,7 @@ const bodyParser = require('body-parser');
 const { CallModel } = require('./src/models/Calls/Calls.model');
 const { CallsRoutes } = require('./src/routes/Calls/Calls.routes');
 const { ManagerRoutes } = require('./src/routes/Manager/Manager.routes');
-const { AgentModel, AgentAvailabilityModel } = require('./src/models/Agent/Agent.Model');
+
 const { AgentTokenModel } = require('./src/models/AgentToken/AgentToken.model');
 const { AgentRoutes } = require('./src/routes/Agent/Agent.routes');
 const { where } = require('sequelize');
@@ -23,6 +23,7 @@ const { setupSocket } = require('./src/utils/Socket/socketServer');
 
 const { firebaseAdmin } = require('./src/utils/Firebase/firebase');
 const { SystemConfigModel } = require('./src/models/SystemConfig/SystemConfig.Model');
+const { AgentModel, AgentAvailabilityModel } = require('./src/models/Agent/Agent.model');
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
