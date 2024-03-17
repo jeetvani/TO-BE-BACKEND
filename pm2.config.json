@@ -1,0 +1,28 @@
+{
+    "apps": [{
+        "name": "SAMPLE BACKEND",
+        "script": "index.js",
+        "watch": ["src"],
+        "ignore_watch": ["test"],
+        "ext": "js,json",
+        "exec_mode": "cluster",
+        "instances": "max",
+        "interpreter": "node",
+        "exec_interpreter": "node",
+        "exec_map": {
+            "js": "node --trace-deprecation",
+            "json": "node --inspect"
+        },
+        "delay": 1000,
+        "legacy_watch": true,
+        "env": {
+            "NODE_ENV": "test"
+        },
+        "events": {
+            "start": "echo 'Application has started'",
+            "restart": "echo 'Application restarted'",
+            "crash": "echo 'Application has crashed'"
+        },
+        "node_args": "--trace-deprecation"
+    }]
+}

@@ -1,0 +1,21 @@
+{
+    "watch": ["./"],
+    "ext": "js,json",
+    "ignore": ["test/**/*.js"],
+    "execMap": {
+        "js": "node --trace-deprecation",
+        "json": "node --inspect"
+    },
+    "delay": "1000",
+    "legacyWatch": true,
+    "verbose": true,
+    "env": {
+        "NODE_ENV": "test",
+        "APP_NAME": "TO-BE-BACKEND"
+    },
+    "events": {
+        "start": "echo 'Application has started'",
+        "restart": "echo 'Application restarted'",
+        "crash": "echo 'Application has crashed'"
+    }
+}
