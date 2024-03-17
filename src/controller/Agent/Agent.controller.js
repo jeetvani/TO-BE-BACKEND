@@ -1,5 +1,5 @@
 const { appLogger } = require("../../config/appLogger");
-const { AgentModel, AgentAvailabilityModel } = require("../../models/agent/Agent.model");
+const { AgentModel, AgentAvailabilityModel } = require("../../models/Agent/Agent.model");
 const { AgentTokenModel } = require("../../models/AgentToken/AgentToken.model");
 const uniqid = require('uniqid');
 const uuid = require('uuid');
