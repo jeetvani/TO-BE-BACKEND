@@ -11,8 +11,8 @@ const app = express();
 
 const Sentiment = require('sentiment');
 const bodyParser = require('body-parser');
-// const { CallModel } = require('./src/models/Calls/Calls.model');
-// const { CallsRoutes } = require('./src/routes/Calls/Calls.routes');
+const { CallModel } = require('./src/models/Calls/Calls.model');
+const { CallsRoutes } = require('./src/routes/Calls/Calls.routes');
 const { ManagerRoutes } = require('./src/routes/Manager/Manager.routes');
 const { AgentModel, AgentAvailabilityModel } = require('./src/models/Agent/Agent.Model');
 const { AgentTokenModel } = require('./src/models/AgentToken/AgentToken.model');
@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-//app.use('/Call', CallsRoutes);
+app.use('/Call', CallsRoutes);
 app.use('/Manager', ManagerRoutes);
 app.use('/Agent', AgentRoutes);
 
