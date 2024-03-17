@@ -1,6 +1,6 @@
 const { Server } = require('socket.io');
 const { appLogger } = require('../../config/appLogger');
-const { AgentModel } = require('../../models/agent/Agent.Model');
+const { AgentModel } = require('../../models/Agent/Agent.model');
 const { AgentTokenModel } = require('../../models/AgentToken/AgentToken.model');
 
 
@@ -30,11 +30,11 @@ const setupSocket = (httpServer) => {
             if (!findAgent) {
                 return socket.emit('agentStatus', { error: "Agent not found" });
             }
-            const checkToken =await AgentTokenModel.findOne({ where: { AgentId: agentId, Token: agentToken } });
+            const checkToken = await AgentTokenModel.findOne({ where: { AgentId: agentId, Token: agentToken } });
             if (!checkToken) {
                 return socket.emit('agentStatus', { error: "Invalid Token" });
             }
-            if  (checkToken){
+            if (checkToken) {
                 return socket.emit('agentStatus', { success: "Login Successfull" });
             }
 
