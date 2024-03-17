@@ -169,46 +169,51 @@ exports.getAllCallsManager = async (req, res) => {
 }
 
 
-
 exports.getTwilioData = async (req, res) => {
-    function convertDateTime(inputDate) {
-        const date = new Date(inputDate);
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const formattedDate = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()} ${formatAMPM(date)}`;
-        return formattedDate;
-    }
+    try {
+        function convertDateTime(inputDate) {
+            const date = new Date(inputDate);
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const formattedDate = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()} ${formatAMPM(date)}`;
+            return formattedDate;
+        }
 
-    function formatAMPM(date) {
-        let hours = date.getHours();
-        let minutes = date.getMinutes();
-        const ampm = hours >= 12 ? 'pm' : 'am';
-        hours = hours % 12;
-        hours = hours ? hours : 12; // handle midnight
-        minutes = minutes < 10 ? '0' + minutes : minutes; // ensure double digits for minutes
-        return `${hours}:${minutes} ${ampm}`;
-    }
-    const currentBalance = await twilioInstance.balance.fetch();
-    let numbersOwned = await twilioInstance.incomingPhoneNumbers.list();
-    const totalCallsMade = await CallModel.count();
-    const totalCallsAnswered = await CallModel.count({ where: { pickedUp: true } });
-    const totalCallsAssisted = await CallModel.count({ where: { transferredToAgent: true } });
+        function formatAMPM(date) {
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            const ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // handle midnight
+            minutes = minutes < 10 ? '0' + minutes : minutes; // ensure double digits for minutes
+            return `${hours}:${minutes} ${ampm}`;
+        }
 
-    for (let i = 0; i < numbersOwned.length; i++) {
-        //delete all the properties just kkkep the phone number
-        numbersOwned[i] = {
-            PhoneNumber: numbersOwned[i].phoneNumber,
-            dateCreated: convertDateTime(numbersOwned[i].dateCreated)
-        };
-    }
-    res.status(200).json({
-        currentBalance,
-        numbersOwned,
-        totalCallsMade,
-        totalCallsAnswered,
-        totalCallsAssisted
-    })
+        const currentBalance = await twilioInstance.balance.fetch();
+        let numbersOwned = await twilioInstance.incomingPhoneNumbers.list();
+        const totalCallsMade = await CallModel.count();
+        const totalCallsAnswered = await CallModel.count({ where: { pickedUp: true } });
+        const totalCallsAssisted = await CallModel.count({ where: { transferredToAgent: true } });
 
+        for (let i = 0; i < numbersOwned.length; i++) {
+            //delete all the properties just keep the phone number
+            numbersOwned[i] = {
+                PhoneNumber: numbersOwned[i].phoneNumber,
+                dateCreated: convertDateTime(numbersOwned[i].dateCreated)
+            };
+        }
+        res.status(200).json({
+            currentBalance,
+            numbersOwned,
+            totalCallsMade,
+            totalCallsAnswered,
+            totalCallsAssisted
+        });
+    } catch (error) {
+        console.error("Error occurred:", error);
+        res.status(500).json({ error: "An error occurred while processing your request." });
+    }
 }
+
 
 
 exports.verifyManager = async (req, res, next) => {
