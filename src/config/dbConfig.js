@@ -19,7 +19,7 @@ const productionEnvironment = {
     DB_NAME: 'TOBE'
 }
 
-const environment = testEnvironment
+const environment = productionEnvironment
 
 
 
