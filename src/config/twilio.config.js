@@ -4,6 +4,6 @@ const twilioProdConfig = {
     fromPhoneNumber: '+18189460736',
 }
 
-const twilioConfig = process.env.NODE_ENV === 'production' ? twilioProdConfig : twilioProdConfig;
+const twilioConfig = twilioProdConfig
 
 module.exports = { twilioConfig };
