@@ -61,7 +61,7 @@ exports.initiateCall = async (req, res) => {
                     action: `${server_base_url}/Call/handleFirstResponse`,
                     method: 'POST',
                     timeout: 3,
-                    language: 'hi-IN',
+                    language: 'he-IL',
                 });
 
                 // Play audio within the Gather for speech input
@@ -129,7 +129,7 @@ exports.initiateCallToSingleNumber = async (req, res) => {
             action: `${server_base_url}/Call/handleFirstResponse`,
             method: 'POST',
             timeout: 3,
-            language: 'hi-IN',
+            language: 'he-IL',
         });
         gather.play('https://dl.sndup.net/z7ty/TO%20BE%20ASK%20IF%20INTRESTED.mp3');
         const finalResponse = response.toString();
@@ -153,16 +153,15 @@ exports.initiateCallToSingleNumber = async (req, res) => {
     }
 }
 
-
 const interestWords = [
-    'जैसे', 'हां', 'वाह', 'ठीक', 'जाओ', 'आगे', 'दिलचस्पी', 'बिना संदेह', 'बिल्कुल',
-    'सच', 'बहुत', 'बढ़िया', 'शानदार', 'बेहतरीन', 'अद्भुत', 'अच्छा', 'चमत्कारिक',
-    'प्रभावशाली', 'अद्वितीय', 'अव्यापक', 'मोहक'
+    'כמו', 'כן', 'וואו', 'בסדר', 'לך', 'קדימה', 'עניין', 'ללא ספק', 'בהחלט',
+    'כמובן', 'מאוד', 'נהדר', 'פנטסטי', 'מדהים', 'מצוין', 'נפלא', 'פנומנלי',
+    'מרשים', 'יוצא מן הכלל', 'משגע', 'מופלא'
 ];
 
-// Set of words indicating negation in Hindi
+// Set of words indicating negation in Hebrew
 const negationWords = [
-    'नहीं', 'ना', 'मत', 'इंकार', 'इनकार', 'मना', 'अस्वीकार'
+    'לא', 'לאו', 'לאלו', 'איני', 'לא מתעניין', 'לא אוהב', 'לא מעוניין', 'לא מתחבר'
 ];
 
 function checkInterest(sentence) {
