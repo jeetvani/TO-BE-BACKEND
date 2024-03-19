@@ -17,6 +17,11 @@ const Sentiment = require('sentiment');
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
 
 
+//* Language for the call
+const lang = 'he-IL';
+//  * Language for the call
+
+
 // & initiateCall will be called when the manager wants to initiate the call
 exports.initiateCall = async (req, res) => {
     try {
@@ -55,17 +60,18 @@ exports.initiateCall = async (req, res) => {
                 // Play initial audio without gathering input
                 response.play('https://dl.sndup.net/n2pv/TO%20BE%20INTIAL%20HELLO.mp3');
 
-                // Create a new <Gather> for speech input
+                //dont take response from user
+                response.play('https://dl.sndup.net/d2kt/donttakeresponse.mp3');
+
+
                 const gather = response.gather({
                     input: 'speech',
                     action: `${server_base_url}/Call/handleFirstResponse`,
                     method: 'POST',
                     timeout: 3,
-                    language: 'he-IL',
-                });
-
-                // Play audio within the Gather for speech input
-                gather.play('https://dl.sndup.net/z7ty/TO%20BE%20ASK%20IF%20INTRESTED.mp3');
+                    language: lang,
+                })
+                gather.play('https://dl.sndup.net/pbzn/takeresponse.mp3');
 
                 const finalResponse = response.toString();
 
@@ -124,14 +130,19 @@ exports.initiateCallToSingleNumber = async (req, res) => {
         appLogger.info("Initiating call to " + toPhoneNumber);
         const response = new VoiceResponse();
         response.play('https://dl.sndup.net/n2pv/TO%20BE%20INTIAL%20HELLO.mp3');
+
+        //dont take response from user
+        response.play('https://dl.sndup.net/d2kt/donttakeresponse.mp3');
+
+
         const gather = response.gather({
             input: 'speech',
             action: `${server_base_url}/Call/handleFirstResponse`,
             method: 'POST',
             timeout: 3,
-            language: 'he-IL',
-        });
-        gather.play('https://dl.sndup.net/z7ty/TO%20BE%20ASK%20IF%20INTRESTED.mp3');
+            language: lang,
+        })
+        gather.play('https://dl.sndup.net/pbzn/takeresponse.mp3');
         const finalResponse = response.toString();
         const call = await twilioInstance.calls.create({
             twiml: finalResponse,
@@ -153,36 +164,26 @@ exports.initiateCallToSingleNumber = async (req, res) => {
     }
 }
 
-const interestWords = [
-    'כמו', 'כן', 'וואו', 'בסדר', 'לך', 'קדימה', 'עניין', 'ללא ספק', 'בהחלט',
-    'כמובן', 'מאוד', 'נהדר', 'פנטסטי', 'מדהים', 'מצוין', 'נפלא', 'פנומנלי',
-    'מרשים', 'יוצא מן הכלל', 'משגע', 'מופלא'
-];
 
-// Set of words indicating negation in Hebrew
-const negationWords = [
-    'לא', 'לאו', 'לאלו', 'איני', 'לא מתעניין', 'לא אוהב', 'לא מעוניין', 'לא מתחבר'
-];
+
+// Set of words indicating negation in Hindi
+const negationWords = ["לא"]
 
 function checkInterest(sentence) {
-    // Tokenize the sentence
-    const tokens = tokenizer.tokenize(sentence);
+    //split the sentence into words
+    const words = tokenizer.tokenize(sentence);
+    console.log(words);
 
-    // Check if any token matches the interest words
-    for (let token of tokens) {
-        if (interestWords.includes(token)) {
-            return true;
+    let positiveCount = 0;
+    let negativeCount = 0;
+
+    words.forEach(word => {
+        if (negationWords.includes(word)) {
+            negativeCount++;
         }
-    }
+    });
 
-    // Check if any token matches the negation words
-    for (let token of tokens) {
-        if (negationWords.includes(token)) {
-            return false;
-        }
-    }
-
-    return false;
+    return positiveCount >= negativeCount;
 }
 
 //* handleFirstResponse will be called when the user responds to the initial message

@@ -16,7 +16,7 @@
         "delay": 1000,
         "legacy_watch": true,
         "env": {
-            "NODE_ENV": "test"
+            "NODE_ENV": "production"
         },
         "events": {
             "start": "echo 'Application has started'",

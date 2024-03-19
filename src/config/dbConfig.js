@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 
-require("dotenv").config();
+
 
 
 const testEnvironment = {
@@ -19,7 +19,7 @@ const productionEnvironment = {
     DB_NAME: 'TOBE'
 }
 
-const environment = productionEnvironment
+const environment = process.env.NODE_ENV === 'test' ? productionEnvironment : productionEnvironment
 
 
 

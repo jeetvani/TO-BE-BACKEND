@@ -294,9 +294,12 @@ exports.updateSystemConfig = async (req, res) => {
     }
     if (getCurrentConfig.length > 0) {
         appLogger.info("Updating system config");
+
+
         const updateConfig = await SystemConfigModel.update({ defaultPhoneNumber, numberOfCalls }, { where: { index: 1 } });
         if (updateConfig) {
             res.status(200).json({ message: "System Config Updated Successfully" });
+            appLogger.info("System Config Updated Successfully");
         } else {
             res.status(500).json({ message: "Internal server error" });
         }
