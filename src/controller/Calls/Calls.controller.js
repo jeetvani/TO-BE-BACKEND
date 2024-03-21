@@ -135,14 +135,14 @@ exports.initiateCallToSingleNumber = async (req, res) => {
         response.play('https://dl.sndup.net/d2kt/donttakeresponse.mp3');
 
 
-        const gather = response.gather({
-            input: 'speech',
-            action: `${server_base_url}/Call/handleFirstResponse`,
-            method: 'POST',
-            timeout: 3,
-            language: lang,
-        })
-        gather.play('https://dl.sndup.net/pbzn/takeresponse.mp3');
+        // const gather = response.gather({
+        //     input: 'speech',
+        //     action: `${server_base_url}/Call/handleFirstResponse`,
+        //     method: 'POST',
+        //     timeout: 3,
+        //     language: lang,
+        // })
+        response.play('https://dl.sndup.net/pbzn/takeresponse.mp3');
         const finalResponse = response.toString();
         const call = await twilioInstance.calls.create({
             twiml: finalResponse,
