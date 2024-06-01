@@ -22,7 +22,7 @@ const { PhoneNumbersModel } = require('./src/models/PhoneNumbers/PhoneNumbers.mo
 const { setupSocket } = require('./src/utils/Socket/socketServer');
 
 const { firebaseAdmin } = require('./src/utils/Firebase/firebase');
-const { SystemConfigModel } = require('./src/models/SystemConfig/SystemConfig.Model');
+const { SystemConfigModel } = require('./src/models/SystemConfig/SystemConfig.model');
 const { AgentModel, AgentAvailabilityModel } = require('./src/models/Agent/Agent.model');
 
 app.use(bodyParser.json({ limit: '50mb' }));
